@@ -1,14 +1,15 @@
 package application
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/shon-phand/CryptoServer/controllers"
-	"github.com/shon-phand/CryptoServer/services"
+	"github.com/shon-phand/CryptoServer/datasources/mysql/currency_db"
+	"github.com/shon-phand/CryptoServer/logger"
+	"github.com/shon-phand/CryptoServer/utils/errors"
 )
 
 var (
@@ -16,13 +17,20 @@ var (
 )
 
 func init() {
-	fmt.Println("updating database, it will take 18 seconds to sync all data")
-	_, err := services.UpdateDatabase()
-	if err != nil {
-		panic("error in synching data")
-	}
+	//fmt.Println("updating database, it will take 18 seconds to sync all data")
+	//go services.UpdateDatabase()
+	// if err != nil {
+	// 	panic("error in synching data")
+	// }
 
-	fmt.Println("update complete")
+	// fmt.Println("update complete")
+	err := currency_db.Client.Ping()
+	if err != nil {
+		logger.Error(errors.StatusInternalServerError("error in pinging database"), err)
+		panic(err)
+	}
+	log.Printf("connected to DB")
+
 }
 
 func StartApplication() {

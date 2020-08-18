@@ -52,7 +52,7 @@ func SyncCurrency() Currencies {
 
 	rawSymbols, err := http.Get("https://api.hitbtc.com/api/2/public/symbol")
 	if err != nil {
-		fmt.Println("error in downloading the symbols")
+		fmt.Println("error in downloading the symbols", err)
 	}
 	defer rawSymbols.Body.Close()
 

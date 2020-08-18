@@ -4,10 +4,15 @@ services:
     build: 
         context: ./datasources/redis/
     restart: always
+    mysql:
+      build: 
+          context: ./datasources/mysql/currency_db
+      restart: always
   go-app:
     build: .
     restart: always
     depends_on: 
       - redis
+      - mysql
     ports:
       - "8080:8080"

@@ -20,6 +20,10 @@ func UpdateDatabase() (float64, *errors.RestErr) {
 	startTime := time.Now()
 	curr := sync.SyncCurrency()
 	Save(curr)
+
+	//var cr domain.Currencies
+	//cr.SaveAllToCache()
+
 	endTime := time.Now()
 	diff := endTime.Sub(startTime)
 	fmt.Println("total time taken ", diff.Seconds(), "seconds")

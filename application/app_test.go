@@ -4,20 +4,13 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mercadolibre/golang-restclient/rest"
 	"github.com/shon-phand/CryptoServer/controllers"
 	"github.com/shon-phand/CryptoServer/domain"
 	"github.com/stretchr/testify/assert"
 )
-
-func TestMain(m *testing.M) {
-	rest.StartMockupServer()
-	os.Exit(m.Run())
-}
 
 func performRequest(r http.Handler, method, path string) *httptest.ResponseRecorder {
 	req, _ := http.NewRequest(method, path, nil)

@@ -1,12 +1,18 @@
-version: "3"
-services:
-  redis:
-    image: shonphand/redis
-    restart: always
-  go-app:
-    image: shonphand/cryptoserver:1.0.1
-    restart: always
-    depends_on: 
-      - redis
-    ports:
-      - "8080:8080"
+  version: "3"
+  services:
+    redis:
+      image: shonphand/redis
+      restart: always
+    mysql:
+      image: shonphand/mysql_caching_db
+    go-app:
+      image: shonphand/caching-service
+      restart: always
+      depends_on: 
+        - redis
+        - mysql
+      ports:
+        - "8080:8080"
+      environment: 
+        MYSQL_ROOT_PASSWORD: mysqlpass
+        MYSQL_DATABASE: currency_db

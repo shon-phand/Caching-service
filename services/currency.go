@@ -19,9 +19,17 @@ type currencyServiceInterface interface {
 func (cs *currencyService) GetCurrency(curr string) (*domain.Currency, *errors.RestErr) {
 
 	obj := &domain.Currency{}
+	// fetching from cache
 	res, err := obj.Get(curr)
+
 	if err != nil {
-		return nil, err
+
+		// not found in cache
+		res, err = obj.GetCurrencyFromDB(curr)
+		if err != nil {
+			return nil, err
+		}
+		//go res.SaveToCache()
 	}
 
 	return res, nil
@@ -31,10 +39,13 @@ func (cs *currencyService) GetCurrency(curr string) (*domain.Currency, *errors.R
 func (cs *currencyService) GetAllCurrency() (*domain.Currencies, *errors.RestErr) {
 
 	obj := &domain.Currencies{}
-	res, err := obj.GetAll()
+	//res, err := obj.GetAll()
+	//if err != nil {
+	res, err := obj.GetAllFromDB()
 	if err != nil {
 		return nil, err
 	}
+	//}
 
 	return res, nil
 

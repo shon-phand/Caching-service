@@ -1,6 +1,7 @@
 package domain
 
 type Currency struct {
+	Sym         string `json:"sym"`
 	ID          string `json:"id"`
 	Ask         string `json:"ask"`
 	Bid         string `json:"bid"`
