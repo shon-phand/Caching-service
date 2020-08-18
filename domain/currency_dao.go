@@ -18,7 +18,7 @@ const (
 	//queryUpdateUser   = "UPDATE  currency SET first_name=?,last_name=?,email=? WHERE id=?;"
 	//queryDeleteUser   = "DELETE from users WHERE id=?;"
 	//queryFindByStatus = "SELECT id,first_name,last_name,email,status,date_created FROM users WHERE status=?;"
-	expiration = 5
+	expiration = 500
 )
 
 func (cr *Currency) Get(cur string) (*Currency, *errors.RestErr) {
